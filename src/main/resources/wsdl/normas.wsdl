@@ -1,0 +1,43 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="https://repositorionormas.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="Normas" targetNamespace="https://repositorionormas.com/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://repositorionormas.com/" version="1.0">
+            <xs:complexType name="norma">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codigo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="data" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricao" type="xs:string"/>
+                    <xs:element minOccurs="0" name="status" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="normas">
+        <wsdl:part name="codigoNorma" type="xsd:string"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="normasResponse">
+        <wsdl:part name="return" type="tns:norma"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="RepositorioNormasPort">
+        <wsdl:operation name="normas">
+            <wsdl:input message="tns:normas" name="normas"> </wsdl:input>
+            <wsdl:output message="tns:normasResponse" name="normasResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="NormasSoapBinding" type="tns:RepositorioNormasPort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="normas">
+            <soap:operation soapAction="urn:normas" style="rpc"/>
+            <wsdl:input name="normas">
+                <soap:body namespace="https://repositorionormas.com/" use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="normasResponse">
+                <soap:body namespace="https://repositorionormas.com/" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="Normas">
+        <wsdl:port binding="tns:NormasSoapBinding" name="RepositorioNormasPort">
+            <soap:address location="http://localhost:8180/services/Normas"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
